@@ -39,7 +39,7 @@ while not utils.is_inspector_ready():
 
 # Continue to monitor old devices and scan for new devices
 interval = 10
-max_interval = 600
+max_interval = 3600
 
 while True:
 
