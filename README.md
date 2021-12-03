@@ -13,7 +13,7 @@ TODO:
 #!/bin/bash
 
 sudo apt update
-sudo apt install -y build-essential python3-pip python3-venv python3-dev git vim autossh lftp tcpdump nmap
+sudo apt install -y build-essential python3-pip python3-venv python3-dev git vim autossh lftp tcpdump nmap tshark
 pip3 install requests python-crontab
 ```
 
