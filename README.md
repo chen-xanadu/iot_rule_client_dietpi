@@ -3,11 +3,36 @@
 ## Before shipping to the participant
 
 *What we need to do?*
-### DietPi OS Image installation
+### 0. DietPi OS Image installation
 
-TODO: 
+Download the DietPi image for NanoPi R2S from [https://dietpi.com/docs/hardware/#nanopi-series-friendlyarm](https://dietpi.com/docs/hardware/#nanopi-series-friendlyarm) and flash it to the SD card.
 
-### 1. Install required packages
+
+### 1. Configure DietPi OS
+
+First ssh into the DietPi as the root user (username: `root`, password: `dietpi`). Choose the following settings:
+
+- `0    : Opt OUT and purge uploaded data`
+- Do you want to adjust the default global software password for DietPi-Software installations? -- `Cancel` 
+- Change existing unix user passwords? -- `Cancel`
+- A serial console is currently enabled, would you like to disable it? -- `Cancel`
+- **Important**: Change the  *SSH Server* to *OpenSSH*:
+```
+│    SSH Server           : [OpenSSH Server]                                   │
+│    File Server          : [None]                                             │
+│    Log System           : [DietPi-RAMlog #1]                                 │
+│    Webserver Preference : [Lighttpd]                                         │
+│    Desktop Preference   : [LXDE]                                             │
+│    Browser Preference   : [None]                                             │
+│    User Data Location   : [SD/eMMC | /mnt/dietpi_userdata]                   │
+```
+
+After DietPi finishes the update, **log out from the current session** and **log in through the *dietpi* user account** (username: `dietpi`, password: `dietpi`) to proceed the steps below. Note that the fingerprint of the NanoPi has changed, so we might need to modify `~/.ssh/known_hosts` on our computer to ssh again.
+
+
+
+
+### 2. Install required packages
 
 ```shell
 #!/bin/bash
@@ -17,7 +42,7 @@ sudo apt install -y build-essential python3-pip python3-venv python3-dev git vim
 pip3 install requests python-crontab
 ```
 
-### 2. Install IoT Inspector local
+### 3. Install IoT Inspector local
 ```shell
 cd $HOME
 git clone https://github.com/chen-xanadu/iot-inspector-local.git
@@ -28,7 +53,7 @@ pip3 install -r ./src/requirements.txt
 deactivate
 ```
 
-### 3. Register with server
+### 4. Register with server
 
 Set the server API key to the environment variable `SERVER_API_KEY`
 ```shell
@@ -48,7 +73,12 @@ The nickname for this device is: buckeye
 Tape the nickname onto the Raspberry Pi box, as it will be used as the id for the device.
 
 
-### 4. Shutdown/reboot the Pi
+### 5. Disable password login (skip this step for debugging devices)
+
+Follow the Step 4 in [https://www.cyberciti.biz/faq/how-to-disable-ssh-password-login-on-linux/](https://www.cyberciti.biz/faq/how-to-disable-ssh-password-login-on-linux/)
+
+
+### 6. Shutdown/reboot the Pi
 ```shell
 sudo reboot
 ```
