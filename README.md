@@ -40,7 +40,18 @@ After DietPi finishes the update, **log out from the current session** and **log
 sudo apt update
 sudo apt install -y build-essential python3-pip python3-venv python3-dev git vim autossh lftp tcpdump nmap tshark net-tools
 pip3 install requests python-crontab
+cd $HOME
+vi ./.bashrc
+```
+Copy the following line to the file:
+
+```shell
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+```
+Exit the editor: Press ESC then type :wq and hit Enter. Then run the following command in the terminal:
+
+```shell
+source ./.bashrc
 ```
 
 ### 3. Install IoT Inspector local
