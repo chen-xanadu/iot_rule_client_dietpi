@@ -53,7 +53,7 @@ UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 nickname = user_data['nickname']
 ssh_port = user_data['ssh_port']
 
-autossh_cmd = 'autossh -M 0 -o "StrictHostKeyChecking no" -o "ServerAliveInterval 30" -o "ServerAliveCountMax 3" -fN -R ' \
+autossh_cmd = 'autossh -M 0 -o "StrictHostKeyChecking no" -o "ServerAliveInterval 10" -o "ServerAliveCountMax 3" -fN -R ' \
               '{}:localhost:22 {}@{}'.format(ssh_port, nickname, SERVER_DOMAIN)
 
 
@@ -75,8 +75,6 @@ tcpdump_script.chmod(0o755)
 
 initialize_script = Path(__file__).resolve().parent / 'initialize.py'
 
-
-gitpull_cmd = '(cd {}; git pull)'.format(Path(__file__).resolve().parent)
 
 debug_script = Path(__file__).resolve().parent / 'debug.sh'
 debug_script.chmod(0o755)
@@ -102,6 +100,3 @@ with CronTab(user=os.getlogin()) as cron:
 
     debug_job = cron.new(command=str(debug_script))
     debug_job.every().hour()
-
-    git_job = cron.new(command=gitpull_cmd)
-    git_job.every().dom()

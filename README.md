@@ -45,14 +45,6 @@ vi ./.bashrc
 ```
 Copy the following line to the file:
 
-```shell
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-```
-Exit the editor: Press ESC then type :wq and hit Enter. Then run the following command in the terminal:
-
-```shell
-source ./.bashrc
-```
 
 ### 3. Install IoT Inspector local
 ```shell

@@ -37,6 +37,16 @@ while not utils.is_inspector_ready():
     time.sleep(2)
 
 
+devices = utils.get_devices_from_server(token)
+
+for device in devices:
+    if device['is_monitored']:
+        requests.get(INSPECTOR_URL + '/enable_inspection/' + device['id'])
+    else:
+        requests.get(INSPECTOR_URL + '/disable_inspection/' + device['id'])
+
+
+
 # Continue to monitor old devices and scan for new devices
 interval = 10
 max_interval = 3600

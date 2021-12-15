@@ -29,4 +29,4 @@ for device in devices:
     else:
         requests.get(INSPECTOR_URL + '/disable_inspection/' + device['id'])
 
-
+print('Success')
