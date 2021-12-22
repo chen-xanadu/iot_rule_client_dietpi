@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+# export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 sleep 30
 
@@ -10,7 +10,8 @@ do
         curr_date=$(date "+%Y_%m_%d_%T")
         pcap_file={tcpdump_dir}/tcpdumpout.$curr_date.pcap
         #sudo timeout 15m tcpdump -i eth0 -s96 -w $pcap_file 2>&1
-        sudo timeout 15m tcpdump -i eth0 -n not arp and not ether host `ifconfig eth0 | grep ether | awk '{{print $2}}'` -s96 -w $pcap_file 2>&1
+        local_ip=$(hostname -I | awk '{{print $1}}')
+        sudo timeout 15m tcpdump -i eth0 -n not arp and not src host $local_ip and not dst host $local_ip  -s96 -w $pcap_file 2>&1
 
         if [ -f "$pcap_file" ]; then
                 csv_file={tshart_dir}/tsharkout.$curr_date.csv
